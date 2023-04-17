@@ -1,12 +1,13 @@
 ﻿using System;
 
-namespace Lab12
+namespace DM4
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.Title = "Основные алгоритмы на графах";
+
         }
     }
 }
