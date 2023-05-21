@@ -1,22 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace DM4
 {
-    internal static class Program
+    internal class Program
     {
-        /// <summary>
-        /// Главная точка входа для приложения.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Console.Title = "«Основные алгоритмы на графах»";
+            UserInterface.Start();
+            return;
+        }
+
+        public static int GetInt(string inputMessage, string errorMessage, Predicate<int> condition)
+        {
+            int result;
+            bool isCorrect;
+            do
+            {
+                Console.Write(inputMessage);
+                isCorrect = int.TryParse(Console.ReadLine(), out result) && condition(result);
+                if (!isCorrect)
+                {
+                    ColorDisplay(errorMessage, ConsoleColor.Red);
+                }
+            } while (!isCorrect);
+            return result;
+        }
+
+        public static void ColorDisplay(string message, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(message);
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
     }
 }
