@@ -10,8 +10,11 @@ namespace DM4
     {
         public static void Start()
         {
-            bool Exit = false;
+            var graph1 = new GraphTable(0);
+            var graph2 = new GraphTable(0);
+            var graph3 = new GraphTable(0);
 
+            bool Exit = false;
             while (!Exit)
             {
                 Console.Clear();
@@ -25,13 +28,13 @@ namespace DM4
                 switch (command)
                 {
                     case 1:
-                        task1();
+                        task1(ref graph1);
                         break;
                     case 2:
-                        task2();
+                        task2(ref graph2);
                         break;
                     case 3:
-                        task3();
+                        task3(ref graph3);
                         break;
                     case 0:
                         Exit = true;
@@ -40,47 +43,27 @@ namespace DM4
             }
         }
 
-        public static void task1()
+        public static void task1(ref GraphTable graph)
         {
             bool Exit = false;
             while (!Exit)
             {
                 Program.ColorDisplay("Номера команд:\n" +
                    "1. Ввести граф.\n" +
-                   "2. Выполнить задание.\n" +
+                   "2. Вывести граф.\n" +
+                   "3. Выполнить задание.\n" +
                    "0. Назад.\n", ConsoleColor.Yellow);
-                int command = Program.GetInt("Введите номер команды: ", "Несуществующая команда, повторите ввод.\n", (int num) => num >= 0 && num <= 2);
+                int command = Program.GetInt("Введите номер команды: ", "Несуществующая команда, повторите ввод.\n", (int num) => num >= 0 && num <= 3);
                 switch (command)
                 {
                     case 1:
+                        graph.CreateGraphTable();
                         break;
                     case 2:
+                        graph.PrintGraphTable();
                         break;
-                    case 0:
-                        Exit = true;
-                        break;
-                }
-                Program.ColorDisplay("Для продолжения нажмите любую клавишу...", ConsoleColor.Yellow);
-                Console.ReadKey();
-                Console.Clear();
-            }
-        }
-
-        public static void task2()
-        {
-            bool Exit = false;
-            while (!Exit)
-            {
-                Program.ColorDisplay("Номера команд:\n" +
-                   "1. Ввести граф.\n" +
-                   "2. Выполнить задание.\n" +
-                   "0. Назад.\n", ConsoleColor.Yellow);
-                int command = Program.GetInt("Введите номер команды: ", "Несуществующая команда, повторите ввод.\n", (int num) => num >= 0 && num <= 2);
-                switch (command)
-                {
-                    case 1:
-                        break;
-                    case 2:
+                    case 3:
+                        graph.TopologicalSort();
                         break;
                     case 0:
                         Exit = true;
@@ -92,21 +75,57 @@ namespace DM4
             }
         }
 
-        public static void task3()
+        public static void task2(ref GraphTable graph)
         {
             bool Exit = false;
             while (!Exit)
             {
                 Program.ColorDisplay("Номера команд:\n" +
                    "1. Ввести граф.\n" +
-                   "2. Выполнить задание.\n" +
+                   "2. Вывести граф.\n" +
+                   "3. Выполнить задание.\n" +
                    "0. Назад.\n", ConsoleColor.Yellow);
-                int command = Program.GetInt("Введите номер команды: ", "Несуществующая команда, повторите ввод.\n", (int num) => num >= 0 && num <= 2);
+                int command = Program.GetInt("Введите номер команды: ", "Несуществующая команда, повторите ввод.\n", (int num) => num >= 0 && num <= 3);
                 switch (command)
                 {
                     case 1:
+                        graph.CreateGraphTable();
                         break;
                     case 2:
+                        graph.PrintGraphTable();
+                        break;
+                    case 3:
+                        break;
+                    case 0:
+                        Exit = true;
+                        break;
+                }
+                Program.ColorDisplay("Для продолжения нажмите любую клавишу...", ConsoleColor.Yellow);
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+
+        public static void task3(ref GraphTable graph)
+        {
+            bool Exit = false;
+            while (!Exit)
+            {
+                Program.ColorDisplay("Номера команд:\n" +
+                   "1. Ввести граф.\n" +
+                   "2. Вывести граф.\n" +
+                   "3. Выполнить задание.\n" +
+                   "0. Назад.\n", ConsoleColor.Yellow);
+                int command = Program.GetInt("Введите номер команды: ", "Несуществующая команда, повторите ввод.\n", (int num) => num >= 0 && num <= 3);
+                switch (command)
+                {
+                    case 1:
+                        graph.CreateGraphTable();
+                        break;
+                    case 2:
+                        graph.PrintGraphTable();
+                        break;
+                    case 3:
                         break;
                     case 0:
                         Exit = true;
