@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace DM4
@@ -9,69 +10,89 @@ namespace DM4
     internal class GraphTable
     {
         private int verticesCount;
-        private List<int>[] adjList;
         private int[,] graph;
+        private int[] count;
         public GraphTable(int vertices)
         {
             verticesCount = vertices;
             graph = new int[vertices, vertices];
-            adjList = new List<int>[vertices];
-
-            for (var i = 0; i < verticesCount; i++)
+            count = new int[vertices];
+            for (int i = 0; i < verticesCount; i++)
             {
-                adjList[i] = new List<int>();
+                count[i] = i + 1;
             }
+            graph = new int[,] { { 0, 1, 0, 0, 0, 1, 1, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 1, 1, 0, 0, 0 }, { 1, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 1, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 1, 0, 0, 1, 0, 0, 0 }, };
         }
 
-        //Добавление пути
-        public void AddEdge(int v, int w)
+        //Топологическая отрисовка уровня
+        public void TopologicalWriteLevel(int level)
         {
-            adjList[v].Add(w);
-        }
-
-        //Топологическая сортировка
-        public void TopologicalSort()
-        {
-            Conversion();
-            var inDegree = new int[verticesCount];
-            for (var i = 0; i < verticesCount; i++)
+            int[] temp = new int[count.Length];
+            int ji = -1;
+            foreach (int j in count)
             {
-                inDegree[i] = 0;
-            }
-
-            foreach (var v in adjList.SelectMany(item => item))
-            {
-                inDegree[v]++;
-            }
-
-            var queue = new Queue<int>();
-            for (var i = 0; i < verticesCount; i++)
-            {
-                if (inDegree[i] == 0)
+                ji++;
+                bool isZero = true;
+                foreach (int i in count)
                 {
-                    queue.Enqueue(i);
-                }
-            }
-
-            var level = 0;
-            while (queue.Count() != 0)
-            {
-                var itemsCount = queue.Count();
-                for (var i = 0; i < itemsCount; i++)
-                {
-                    var v = queue.Dequeue();
-                    Console.Write("{0} ({1}) ", v, level);
-
-                    foreach (var adj in adjList[v])
+                    if (graph[i - 1, j - 1] != 0)
                     {
-                        inDegree[adj]--;
-                        if (inDegree[adj] == 0)
-                        {
-                            queue.Enqueue(adj);
-                        }
+                        isZero = false;
+                        break;
                     }
                 }
+                if (isZero)
+                {
+                    temp[ji] = j;
+                    Console.WriteLine("{0}({1}) ", j, level);
+                }
+            }
+            DelLevel(temp);
+        }
+
+        public void TopologicalSort()
+        {
+            int level = 0;
+            while (count.Length > 0)
+            {
+                TopologicalWriteLevel(level);
                 level++;
+            }
+            count = new int[verticesCount];
+            for (int i = 0; i < verticesCount; i++)
+            {
+                count[i] = i + 1;
+            }
+        }
+
+        public void DelLevel(int[] temp)
+        {
+            for (int i = 0;i < temp.Length;i++)
+            {
+                if (temp[i] != 0)
+                {
+                    DelEl(temp[i]);
+                    Console.WriteLine("Удаляю {0} столбец", temp[i]);
+                }
+            }
+        }
+
+        //Выбор элемента яруса путем удаления элемента во вспомогательном массиве
+        public void DelEl(int el)
+        {
+            int[] countNew = new int[count.Length - 1];
+            for (int i = 0, j = 0; i < count.Length; i++)
+            {
+                if (count[i] != el)
+                {
+                    countNew[j] = count[i];
+                    j++;
+                }
+            }
+            count = new int[countNew.Length];
+            for (int i = 0;i < countNew.Length;i++)
+            {
+                count[i] = countNew[i];
             }
         }
 
@@ -80,6 +101,11 @@ namespace DM4
         {
             verticesCount = Program.GetInt("Введите количество вершин: ", "Неверный ввод, повторите попытку.\n", (int num) => num >= 0);
             graph = new int[verticesCount, verticesCount];
+            count = new int[verticesCount];
+            for (int i = 0; i < verticesCount; i++)
+            {
+                count[i] = i + 1;
+            }
             for (int i = 0; i < verticesCount; i++)
             {
                 for (int j = 0; j < verticesCount; j++)
@@ -106,21 +132,6 @@ namespace DM4
                         Console.Write(graph[i, j] + "\t");
                     }
                     Console.WriteLine();
-                }
-            }
-        }
-
-        //Конвертирование таблицы графа в граф списком
-        public void Conversion()
-        {
-            for (int i = 0;i < verticesCount;i++)
-            {
-                for (int j = 0;j < verticesCount;j++)
-                {
-                    if (graph[i, j] != 0)
-                    {
-                        AddEdge(i, j);
-                    }
                 }
             }
         }

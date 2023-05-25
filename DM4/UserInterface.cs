@@ -10,7 +10,7 @@ namespace DM4
     {
         public static void Start()
         {
-            var graph1 = new GraphTable(0);
+            var graph1 = new GraphTable(8);
             var graph2 = new GraphTable(0);
             var graph3 = new GraphTable(0);
 
