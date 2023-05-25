@@ -10,8 +10,8 @@ namespace DM4
     {
         public static void Start()
         {
-            var graph1 = new GraphTable(8);
-            var graph2 = new GraphTable(0);
+            var graph1 = new GraphTable(0);
+            var graph2 = new ImplementationShimbella(0);
             var graph3 = new GraphTable(0);
 
             bool Exit = false;
@@ -75,7 +75,7 @@ namespace DM4
             }
         }
 
-        public static void task2(ref GraphTable graph)
+        public static void task2(ref ImplementationShimbella graph)
         {
             bool Exit = false;
             while (!Exit)
@@ -95,6 +95,7 @@ namespace DM4
                         graph.PrintGraphTable();
                         break;
                     case 3:
+                        graph.StartAlgShimbella();
                         break;
                     case 0:
                         Exit = true;

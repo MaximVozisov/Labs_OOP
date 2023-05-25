@@ -10,7 +10,7 @@ namespace DM4
     internal class GraphTable
     {
         private int verticesCount;
-        private int[,] graph;
+        public int[,] graph;
         private int[] count;
         public GraphTable(int vertices)
         {
@@ -21,11 +21,10 @@ namespace DM4
             {
                 count[i] = i + 1;
             }
-            graph = new int[,] { { 0, 1, 0, 0, 0, 1, 1, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 1, 1, 0, 0, 0 }, { 1, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 1, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 1, 0, 0, 1, 0, 0, 0 }, };
         }
 
         //Топологическая отрисовка уровня
-        public void TopologicalWriteLevel(int level)
+        private void TopologicalWriteLevel(int level)
         {
             int[] temp = new int[count.Length];
             int ji = -1;
@@ -50,6 +49,7 @@ namespace DM4
             DelLevel(temp);
         }
 
+        //Цикл топологической отрисовки
         public void TopologicalSort()
         {
             int level = 0;
@@ -65,20 +65,20 @@ namespace DM4
             }
         }
 
-        public void DelLevel(int[] temp)
+        //Удаление нулевых столбцов
+        private void DelLevel(int[] temp)
         {
             for (int i = 0;i < temp.Length;i++)
             {
                 if (temp[i] != 0)
                 {
                     DelEl(temp[i]);
-                    Console.WriteLine("Удаляю {0} столбец", temp[i]);
                 }
             }
         }
 
-        //Выбор элемента яруса путем удаления элемента во вспомогательном массиве
-        public void DelEl(int el)
+        //Удаление элемента массива по ключу
+        private void DelEl(int el)
         {
             int[] countNew = new int[count.Length - 1];
             for (int i = 0, j = 0; i < count.Length; i++)
