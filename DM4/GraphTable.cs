@@ -10,7 +10,7 @@ namespace DM4
     internal class GraphTable
     {
         private int verticesCount;
-        public int[,] graph;
+        private int[,] graph;
         private int[] count;
         public GraphTable(int vertices)
         {

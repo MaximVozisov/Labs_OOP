@@ -12,7 +12,7 @@ namespace DM4
         {
             var graph1 = new GraphTable(0);
             var graph2 = new ImplementationShimbella(0);
-            var graph3 = new GraphTable(0);
+            var graph3 = new graphСlique(0);
 
             bool Exit = false;
             while (!Exit)
@@ -107,7 +107,7 @@ namespace DM4
             }
         }
 
-        public static void task3(ref GraphTable graph)
+        public static void task3(ref graphСlique graph)
         {
             bool Exit = false;
             while (!Exit)
@@ -127,6 +127,7 @@ namespace DM4
                         graph.PrintGraphTable();
                         break;
                     case 3:
+                        graph.SearchCliques();
                         break;
                     case 0:
                         Exit = true;
