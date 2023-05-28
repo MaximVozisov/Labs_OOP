@@ -45,7 +45,7 @@ namespace DM4
                 {
                     Console.Write("Клика: ");
                     foreach (int v in subset)
-                        Console.Write(v + " ");
+                        Console.Write(v + 1 + " ");
                     Console.WriteLine();
                 }
                 return;
