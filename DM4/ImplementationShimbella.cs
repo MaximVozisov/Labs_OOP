@@ -24,13 +24,14 @@ namespace DM4
             visited = new bool[size];
         }
 
+        //выбор следующей вершины для поиска кратчайшего пути
         private int GetNextVertex()
         {
-            int minDist = int.MaxValue;
-            int vertex = -1;
-            for (int i = 0; i < distance.Length; ++i)
+            int minDist = int.MaxValue; // присвоение максимального значения
+            int vertex = -1; // пока что -1 - ошибка
+            for (int i = 0; i < distance.Length; ++i) //проходимся по всему массиву дистанция до других точек
             {
-                if (!visited[i] && distance[i] < minDist)
+                if (!visited[i] && distance[i] < minDist) // если она не посещена и дистанция до данной вершины меньше чем минимальный
                 {
                     minDist = distance[i];
                     vertex = i;
@@ -41,19 +42,19 @@ namespace DM4
 
         public int[] FindShortestPath(int start)
         {
-            for (int i = 0; i < distance.Length; ++i)
+            for (int i = 0; i < distance.Length; ++i) // подготовка
             {
                 distance[i] = int.MaxValue;
                 visited[i] = false;
             }
-            distance[start] = 0;
+            distance[start] = 0; // дистанция от вершины, колторой мы ищем до нее же = 0
 
-            for (int i = 0; i < distance.Length - 1; ++i)
+            for (int i = 0; i < distance.Length - 1; ++i) // вычисляем расстояния от заданной вершины (start) до других
             {
-                int current = GetNextVertex();
+                int current = GetNextVertex(); // выбираем вершину с наименьшим расстоянием из набора непосещенных вершин
                 visited[current] = true;
 
-                for (int j = 0; j < adjMatrix[current].Length; ++j)
+                for (int j = 0; j < adjMatrix[current].Length; ++j) // обновление расстояний до всех вершин
                 {
                     if (adjMatrix[current][j] != 0 && !visited[j])
                     {

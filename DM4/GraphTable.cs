@@ -21,6 +21,14 @@ namespace DM4
             {
                 count[i] = i + 1;
             }
+            if (vertices == 4)
+            {
+                int[,] adjacencyMatrix = {  { 0, 2, 3, 2 },
+                                            { 2, 0, 2, 0 },
+                                            { 0, 0, 0, 0 },
+                                            { 0, 2, 1, 0 }  };
+                graph = adjacencyMatrix;
+            }
         }
 
         //Топологическая отрисовка уровня
@@ -133,6 +141,62 @@ namespace DM4
                     }
                     Console.WriteLine();
                 }
+            }
+        }
+
+        public int[,] SumMatrix(int[,] matrix, int[,] graph)
+        {
+            int[,] C = new int[verticesCount, verticesCount];
+            int[] temp = new int[verticesCount];
+            for (int i = 0; i < verticesCount; i++)
+            {
+                for (int j = 0; j < verticesCount; j++)
+                {
+                    for (int k = 0; k < verticesCount; k++)
+                    {
+                        if (matrix[k, j] == 0 || graph[i, k] == 0)
+                        {
+                            temp[k] = int.MaxValue;
+                        }
+                        else
+                            temp[k] = matrix[k, j] + graph[i, k];
+                    }
+                    C[i, j] = MinMas(temp, verticesCount);
+                }
+            }
+            return C;
+        }
+
+        private int MinMas(int[] mas, int n)
+        {
+            int min = int.MaxValue;
+            for (int i = 0; i < n; i++)
+            {
+                if (mas[i] < min && mas[i] != 0)
+                    min = mas[i];
+            }
+            if (min == int.MaxValue)
+            {
+                min = 0;
+            }
+            return min;
+        }
+
+        public void AlgShimbella()
+        {
+            int k = Program.GetInt("Введите количество ребер: ", "Несуществующая команда, повторите ввод.\n", (int num) => num >= 0) - 1;
+            int[,] matrix = graph;
+            for (int i = 0; i < k; i++)
+            {
+                matrix = SumMatrix(matrix, graph);
+            }
+            for (int i = 0; i < verticesCount; i++)
+            {
+                for (int j = 0; j < verticesCount; j++)
+                {
+                    Console.Write(matrix[i, j] + "\t");
+                }
+                Console.WriteLine();
             }
         }
     }

@@ -8,6 +8,7 @@ namespace DM4
 {
     internal class graphСlique
     {
+        private int j;
         private int V; // количество вершин в графе
         private bool[][] graphBool; // граф булевых переменных
 
@@ -19,6 +20,27 @@ namespace DM4
             for (int i = 0; i < V; i++)
             {
                 graphBool[i] = new bool[v];
+            }
+            if (v == 5)
+            {
+                graphBool = new bool[][]
+                {
+                    new bool[] { false, true, true, true, true },
+                    new bool[] { true, false, true, false, false },
+                    new bool[] { true, true, false, true, true },
+                    new bool[] { true, false, true, false, true },
+                    new bool[] { true, false, true, true, false }
+                };
+            }
+            if (v == 4)
+            {
+                graphBool = new bool[][]
+                {
+                    new bool[] { false, true, true, true },
+                    new bool[] { true, false, true, false },
+                    new bool[] { true, true, false, true },
+                    new bool[] { true, false, true, false }
+                };
             }
         }
 
@@ -36,8 +58,28 @@ namespace DM4
             return true;
         }
 
+        private void FindClK(bool[][] graph, int subsetSize, int[] subset, int k)
+        {
+            if (subsetSize == k)
+            {
+                if (IsClique(graph, subset, k))
+                {
+                    j = subset.Length;
+                }
+                return;
+            }
+
+
+            int last = subsetSize == 0 ? -1 : subset[subsetSize - 1];
+            for (int i = last + 1; i < V; i++)
+            {
+                subset[subsetSize] = i;
+                FindClK(graph, subsetSize + 1, subset, k);
+            }
+        }
+
         // метод для поиска клики в графе
-        public void FindCliques(bool[][] graph, int subsetSize, int[] subset, int k)
+        private void FindCliques(bool[][] graph, int subsetSize, int[] subset, int k)
         {
             if (subsetSize == k)
             {
@@ -45,11 +87,14 @@ namespace DM4
                 {
                     Console.Write("Клика: ");
                     foreach (int v in subset)
+                    {
                         Console.Write(v + 1 + " ");
+                    }
                     Console.WriteLine();
                 }
                 return;
             }
+            
 
             int last = subsetSize == 0 ? -1 : subset[subsetSize - 1];
             for (int i = last + 1; i < V; i++)
@@ -107,9 +152,13 @@ namespace DM4
         {
             if (V > 0)
             {
-                int k = Program.GetInt($"Введите размер клики: ", "Нет такого количества вершин!\n", (int num) => num >= 0 && num <= V);
-                int[] subset = new int[k];
-                FindCliques(graphBool, 0, subset, k);
+                for (int t = 0; t <= V; t++)
+                {
+                    int[] subset = new int[t];
+                    FindClK(graphBool, 0, subset, t);
+                }
+                int[] subset1 = new int[j];
+                FindCliques(graphBool, 0, subset1, j);
             }
             else
             {
