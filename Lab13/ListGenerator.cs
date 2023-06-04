@@ -8,7 +8,7 @@ public static class ListGenerator
     public static MyEventLinkedList<Person> GenerateMyEventLinkedList(string Name)
     {
         var list = new MyEventLinkedList<Person>(Name);
-        int len = rnd.Next(UserInterface.MIN_LENGTH, UserInterface.MAX_LENGTH);
+        int len = rnd.Next(UserInterface1.MIN_LENGTH, UserInterface1.MAX_LENGTH);
         for (int i = 0; i < len; ++i)
         {
             list.Add(GenerateHuman());
@@ -19,7 +19,7 @@ public static class ListGenerator
     public static void RegenerateMyEventLinkedList(MyEventLinkedList<Person> list)
     {
         list.Clear();
-        int len = rnd.Next(UserInterface.MIN_LENGTH, UserInterface.MAX_LENGTH);
+        int len = rnd.Next(UserInterface1.MIN_LENGTH, UserInterface1.MAX_LENGTH);
         for (int i = 0; i < len; ++i)
         {
             list.Add(GenerateHuman());

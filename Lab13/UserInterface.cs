@@ -3,11 +3,11 @@ using static UtilityLibraries.ConsoleIOLibrary;
 using static UtilityLibraries.CollectionLibrary;
 using static UtilityLibraries.PersonLibrary;
 namespace Lab13;
-internal static class UserInterface
+internal static class UserInterface1
 {
     internal const int MIN_LENGTH = 10;  //минимальная длина генерируемого списка (включительно)
     internal const int MAX_LENGTH = 20;  //максимальная длина генерируемого списка (не включительно)
-    internal static void Execute()
+    internal static void Start()
     {
         bool needExit = false;
         var list1 = ListGenerator.GenerateMyEventLinkedList("Список 1");
@@ -25,7 +25,7 @@ internal static class UserInterface
             ColorDisplay("Номера команд:\n1. Сгенерировать новый первый список\n2. Сгенерировать новый второй список" +
             "\n3. Добавить новый случайный элемент в первый список\n4. Добавить новый случайный элемент во второй список\n5. Удалить элемент из первого списка (по индексу)" +
             "\n6. Удалить элемент из второго списка (по индексу)\n7. Сгенерировать новый элемент вместо существующего в первом списке" +
-            "\n8. Сгенерировать новый элемент вместо существующего во втором списке\n0. Выход\n-1. Вывести журнал логов1\n-2. Вывести журнал логов2\n", ConsoleColor.Green);
+            "\n8. Сгенерировать новый элемент вместо существующего во втором списке\n0. Выход\n-1. Вывести журнал логов1\n-2. Вывести журнал логов2\n", ConsoleColor.Yellow);
             ColorDisplay("Исходный список1:\n", ConsoleColor.Magenta);
             Display(list1);
             ColorDisplay("Исходный список2:\n", ConsoleColor.Magenta);

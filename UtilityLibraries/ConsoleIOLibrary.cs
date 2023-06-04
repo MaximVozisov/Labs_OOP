@@ -8,7 +8,7 @@ public static class ConsoleIOLibrary
         bool isCorrect;
         do
         {
-            ColorDisplay(inputMessage, ConsoleColor.Green);
+            ColorDisplay(inputMessage, ConsoleColor.Yellow);
             isCorrect = int.TryParse(Console.ReadLine(), out result) && condition(result);
             if (!isCorrect)
                 ColorDisplay(errorMessage, ConsoleColor.Red);
@@ -22,7 +22,7 @@ public static class ConsoleIOLibrary
         bool isCorrect;
         do
         {
-            ColorDisplay(inputMessage, ConsoleColor.Green);
+            ColorDisplay(inputMessage, ConsoleColor.Yellow);
             isCorrect = char.TryParse(Console.ReadLine(), out result) && condition(result);
             if (!isCorrect)
                 ColorDisplay(errorMessage, ConsoleColor.Red);

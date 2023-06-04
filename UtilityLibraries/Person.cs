@@ -10,13 +10,13 @@ public class Person : IRandomInit, IComparable<Person>, ICloneable
 {
     [JsonIgnore]
     [NonSerialized]
-    protected static readonly string[] names = { "Денис", "Иван", "Олег", "Василий", "Сергей", "Павел", "Вячеслав", "Виктор", "Михаил", "Анатолий", "Владислав", "Валерий" };
+    protected static readonly string[] names = { "Возисов", "Иван", "Олег", "Василий", "Сергей", "Павел", "Вячеслав", "Виктор", "Михаил", "Анатолий", "Владислав", "Валерий" };
     [JsonIgnore]
     [NonSerialized]
-    protected static readonly string[] surnames = { "Мельников", "Мазунин", "Гостев", "Иванов", "Кузнецов", "Глазырин", "Власов", "Омутных", "Воронин", "Соколков" };
+    protected static readonly string[] surnames = { "Максим", "Мазунин", "Гостев", "Иванов", "Кузнецов", "Глазырин", "Власов", "Омутных", "Воронин", "Соколков" };
     [JsonIgnore]
     [NonSerialized]
-    protected static readonly string[] patronymics = { "Денисович", "Иванович", "Олегович", "Васильевич", "Вячеславович", "Михайлович", "Анатольевич", "Валерьевич" };
+    protected static readonly string[] patronymics = { "Андреевич", "Иванович", "Олегович", "Васильевич", "Вячеславович", "Михайлович", "Анатольевич", "Валерьевич" };
     public string? first_name { get; set; } = null;
     public string? surname { get; set; } = null;
     public string? patronymic { get; set; } = null;
