@@ -7,31 +7,10 @@ namespace Lab12
         static void Main(string[] args)
         {
             Console.Title = "Лабораторная работа 12";
-            Point list = new Point();
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+            Console.InputEncoding = System.Text.Encoding.Unicode;
+            UserInterface.Execute();
             return;
-        }
-
-        public static int GetInt(string inputMessage, string errorMessage, Predicate<int> condition)
-        {
-            int result;
-            bool isCorrect;
-            do
-            {
-                Console.Write(inputMessage);
-                isCorrect = int.TryParse(Console.ReadLine(), out result) && condition(result);
-                if (!isCorrect)
-                {
-                    ColorDisplay(errorMessage, ConsoleColor.Red);
-                }
-            } while (!isCorrect);
-            return result;
-        }
-
-        public static void ColorDisplay(string message, ConsoleColor color)
-        {
-            Console.ForegroundColor = color;
-            Console.Write(message);
-            Console.ForegroundColor = ConsoleColor.Gray;
         }
     }
 }
