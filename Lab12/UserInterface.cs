@@ -30,7 +30,7 @@ public static class UserInterface
                     Display(myLinkedList);
                     break;
                 case 2:
-                    ColorDisplay("Номера команд:\n1. Сгенерировать \n2. Добавить в ручную", ConsoleColor.Green);
+                    ColorDisplay("Номера команд:\n1. Сгенерировать \n2. Добавить в ручную\n", ConsoleColor.Yellow);
                     command = GetInt("Введите номер команды: ", "Несуществующая команда, повторите ввод =>\n", (int num) => num >= 1 && num <= 2);
                     Console.Clear();
                     myLinkedList.Add(GenerateHuman());

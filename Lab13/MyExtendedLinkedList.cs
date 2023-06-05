@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace Lab13;
-//класс с новыми методами, унаследованный из класса из 12 лабы (так нужно по условию)
-[Serializable]
 public class MyExtendedLinkedList<T> : MyLinkedList<T>
 {
-    public string Name { get; set; } = "РасширенныйCвязныйCписок";
+    public string Name { get; set; }
     public virtual T this[int index]
     {
         get
@@ -43,19 +41,7 @@ public class MyExtendedLinkedList<T> : MyLinkedList<T>
             }
         }
     }
-    public MyExtendedLinkedList() : base()
-    {
-
-    }
-    public MyExtendedLinkedList(IEnumerable<T> enumerable) : base(enumerable)
-    {
-
-    }
-    public MyExtendedLinkedList(string Name) : base()
-    {
-        this.Name = Name;
-    }
-    public MyExtendedLinkedList(IEnumerable<T> enumerable, string Name) : base(enumerable)
+    public MyExtendedLinkedList(string Name)
     {
         this.Name = Name;
     }
