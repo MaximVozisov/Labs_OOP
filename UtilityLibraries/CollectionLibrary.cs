@@ -14,12 +14,12 @@ public static class CollectionLibrary
         }
         else
         {
-            ConsoleIOLibrary.ColorDisplay("Коллекция пуста!\n", ConsoleColor.Red);
+            CollectionConsole.ColorDisplay("Коллекция пуста!\n", ConsoleColor.Red);
         }
     }
     public static void Display<T>(IEnumerable<T> collection, string label)
     {
-        ConsoleIOLibrary.ColorDisplay(label, ConsoleColor.Magenta);
+        CollectionConsole.ColorDisplay(label, ConsoleColor.Magenta);
         if (collection.Count() > 0)
         {
             int counter = 0;
@@ -30,7 +30,7 @@ public static class CollectionLibrary
         }
         else
         {
-            ConsoleIOLibrary.ColorDisplay("Коллекция пуста!\n", ConsoleColor.Red);
+            CollectionConsole.ColorDisplay("Коллекция пуста!\n", ConsoleColor.Red);
         }
     }
 }

@@ -1,15 +1,12 @@
 ﻿using UtilityLibraries;
-using static UtilityLibraries.ConsoleIOLibrary;
+using static UtilityLibraries.CollectionConsole;
 using static UtilityLibraries.CollectionLibrary;
-using static UtilityLibraries.PersonLibrary;
-using System.Collections.Generic;
-using System;
+using static UtilityLibraries.TrialLibrary;
+namespace Lab12;
 public static class UserInterface
 {
-    internal static int MIN_LENGTH = 5;  //минимальная длина генерируемого списка (включительно)
-    internal static int MAX_LENGTH = 10;  //максимальная длина генерируемого списка (не включительно
-
-    //основной метод интерфейса взаимойдействия с пользователем
+    internal static int MIN_LENGTH = 5;
+    internal static int MAX_LENGTH = 15;
     internal static void Execute()
     {
         bool needExit = false;
@@ -17,8 +14,8 @@ public static class UserInterface
         while (!needExit)
         {
             ColorDisplay("Номера команд:\n1. Сгенерировать и вывести новый связный список\n2. Добавить элемент\n3. Удалить элемент" +
-            "\n4. Очистить список\n5. Проверить наличие элемента в списке\n6. Добавить элементы на все нечётные позиции" +
-            "\n7. Поверхностное копирование с помощью CopyTo()\n8. Глубокое копирование с помощью ICloneable\n0. Выход\n", ConsoleColor.Yellow);
+            "\n4. Очистить список\n5. Проверить наличие элемента в списке\n6. Удалить из списка все элементы с заданными информационными полями." +
+            "\n7. Поверхностное копирвоание с помощью CopyTo()\n8. Глубокое копирование\n0. Выход\n", ConsoleColor.Yellow);
             ColorDisplay("Исходный список:\n", ConsoleColor.Magenta);
             Display(myLinkedList);
             int command = GetInt("Введите номер команды: ", "Несуществующая команда, повторите ввод =>\n", (int num) => num >= 0 && num <= 8);
@@ -33,14 +30,15 @@ public static class UserInterface
                     Display(myLinkedList);
                     break;
                 case 2:
+                    ColorDisplay("Номера команд:\n1. Сгенерировать \n2. Добавить в ручную", ConsoleColor.Green);
+                    command = GetInt("Введите номер команды: ", "Несуществующая команда, повторите ввод =>\n", (int num) => num >= 1 && num <= 2);
+                    Console.Clear();
                     myLinkedList.Add(GenerateHuman());
                     ColorDisplay("Список после добавления нового элемента:\n", ConsoleColor.Magenta);
                     Display(myLinkedList);
                     break;
                 case 3:
-                    var toRemove = Person.InputPerson();
-                    Console.WriteLine($"Объект для удаления: {toRemove}");
-                    Console.WriteLine("Введённый элемент удалён: " + myLinkedList.Remove(toRemove));
+                    Console.WriteLine("Введённый элемент удалён: " + myLinkedList.Remove(Trial.InputTrial()));
                     ColorDisplay("Список после удаления элемента:\n", ConsoleColor.Magenta);
                     Display(myLinkedList);
                     break;
@@ -50,23 +48,23 @@ public static class UserInterface
                     Display(myLinkedList);
                     break;
                 case 5:
-                    Console.WriteLine("Список содержит введённый элемент: " + myLinkedList.Contains(Person.InputPerson()));
+                    Console.WriteLine("Список содержит введённый элемент: " + myLinkedList.Contains(Trial.InputTrial()));
                     break;
                 case 6:
-                    AddOnOdd(myLinkedList);
+                    DelName(myLinkedList, Trial.InputTrial());
                     ColorDisplay("Текущий список:\n", ConsoleColor.Magenta);
                     Display(myLinkedList);
                     break;
                 case 7:
-                    Person[] array = new Person[myLinkedList.Count];
+                    Trial[] array = new Trial[myLinkedList.Count];
                     myLinkedList.CopyTo(array, 0);
-                    ColorDisplay("Поверхнстная копия (массив):\n", ConsoleColor.Magenta);
+                    ColorDisplay("Поверхностная копия (массив):\n", ConsoleColor.Magenta);
                     if (array.Length > 0)
                     {
                         int counter = 0;
-                        foreach (var person in array)
+                        foreach (var trial in array)
                         {
-                            Console.WriteLine(counter++.ToString() + ". " + person);
+                            Console.WriteLine(counter++.ToString() + ". " + trial);
                         }
                     }
                     else
@@ -75,7 +73,7 @@ public static class UserInterface
                     }
                     break;
                 case 8:
-                    var clone = (MyLinkedList<Person>)myLinkedList.Clone();
+                    var clone = (MyLinkedList<Trial>)myLinkedList.Clone();
                     ColorDisplay("Глубокая копия:\n", ConsoleColor.Magenta);
                     Display(clone);
                     ColorDisplay("Исходный список после очищения:\n", ConsoleColor.Magenta);
@@ -83,7 +81,7 @@ public static class UserInterface
                     Display(myLinkedList);
                     ColorDisplay("Глубокая копия:\n", ConsoleColor.Magenta);
                     Display(clone);
-                    myLinkedList = (MyLinkedList<Person>)clone.Clone();
+                    myLinkedList = (MyLinkedList<Trial>)clone.Clone();
                     break;
                 case 0:
                     needExit = true;
@@ -94,19 +92,19 @@ public static class UserInterface
             Console.Clear();
         }
     }
-    //добавление новых элементов на все нечётные позиции
-    private static void AddOnOdd(MyLinkedList<Person> myLinkedList)
+    // Удаление всех заданных элементов
+    private static void DelName(MyLinkedList<Trial> myLinkedList, Trial item)
     {
-        for (int i = 1; i < myLinkedList.Count; i += 2)
+        while (myLinkedList.Contains(item) != false)
         {
-            myLinkedList.AddTo(GenerateHuman(), i);
+            myLinkedList.Remove(item);
         }
     }
-    //генерация нового связного списка
-    public static MyLinkedList<Person> GenerateMyLinkedList()
+    // Генерация нового связного списка
+    public static MyLinkedList<Trial> GenerateMyLinkedList()
     {
         int len = rnd.Next(MIN_LENGTH, MAX_LENGTH);
-        var myLinkedList = new MyLinkedList<Person>();
+        var myLinkedList = new MyLinkedList<Trial>();
         for (int i = 0; i < len; ++i)
         {
             myLinkedList.Add(GenerateHuman());

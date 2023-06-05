@@ -1,5 +1,5 @@
 ﻿namespace UtilityLibraries;
-public static class ConsoleIOLibrary
+public static class CollectionConsole
 {
     //ввод целого числа с консоли с обработкой ошибок
     public static int GetInt(string inputMessage, string errorMessage, Predicate<int> condition)
